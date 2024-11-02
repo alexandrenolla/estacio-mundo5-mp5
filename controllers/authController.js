@@ -27,7 +27,7 @@ const decryptSessionId = (req, res) => {
     }
 };
 
-const getPerfilBySessionId = (req, res) => {
+const getSessionId = (req, res) => {
     const sessionid = req.params.sessionid;
     const perfil = getPerfil(sessionid);
     if (perfil !== 'admin') {
@@ -46,15 +46,15 @@ const getUserData = (req, res) => {
 };
 
 
-const getExistingContracts = (req, res) => {
-    const empresa = req.params.empresa;
+const handleGetContracts = (req, res) => {
+    const company = req.params.empresa;
     const dtInicio = req.params.inicio;
-    const sessionid = req.params.sessionid;
+    const sessionId = req.params.sessionid;
     const result = getContracts(empresa, dtInicio);
     if (result)
         res.status(200).json({ data: result })
     else
-        res.status(404).json({ data: 'Dados Não encontrados' })
+        res.status(404).json({ data: 'Data not found' })
 };
 
-module.exports = { login, decryptSessionId, getPerfilBySessionId, getExistingContracts, getUserData };
+module.exports = { login, decryptSessionId, getSessionId, handleGetContracts, getUserData };
